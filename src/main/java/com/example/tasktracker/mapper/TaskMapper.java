@@ -2,22 +2,56 @@ package com.example.tasktracker.mapper;
 
 import com.example.tasktracker.entity.Task;
 import com.example.tasktracker.model.TaskModel;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import com.example.tasktracker.model.TaskResponse;
+import org.springframework.stereotype.Component;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface TaskMapper {
+@Component
+public class TaskMapper {
 
-
-    Task taskModelToTask(TaskModel taskModel);
-
+     public Task taskModelToTask(TaskModel taskModel) {
 
 
-    default Task taskModelToTask(String id, TaskModel taskModel) {
+        return new Task(
+                taskModel.getId(),
+                taskModel.getName(),
+                taskModel.getDescription(),
+                taskModel.getAuthorId(),
+                taskModel.getAssigneeId(),
+                null,
+                null,
+                taskModel.getStatus(),
+                taskModel.getObserverIds()
+                );
+    }
+
+     public Task taskModelToTask(String id, TaskModel taskModel) {
         Task task = taskModelToTask(taskModel);
         task.setId(id);
         return task;
     }
 
-    TaskModel taskToTaskModel(Task task);
+    public TaskModel taskToTaskModel(Task task){
+        return new TaskModel(
+                task.getId(),
+                task.getName(),
+                task.getDescription(),
+                task.getAuthorId(),
+                task.getAssigneeId(),
+                task.getCreatedAt(),
+                task.getUpdatedAt(),
+                task.getStatus(),
+                task.getObserverIds()
+        );
+    }
+     public TaskResponse taskToTaskResponse(Task task){
+        return new TaskResponse(
+                task.getId(),
+                task.getName(),
+                task.getDescription(),
+                task.getCreatedAt(),
+                task.getUpdatedAt(),
+                task.getStatus(),
+                task.getObserverIds()
+        );
+    }
 }

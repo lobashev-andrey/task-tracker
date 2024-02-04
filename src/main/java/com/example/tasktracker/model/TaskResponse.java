@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskModel implements ModelResponse{
+public class TaskResponse implements ModelResponse{
 
     private String id;
 
@@ -15,17 +15,12 @@ public class TaskModel implements ModelResponse{
 
     private String description;
 
-    private String authorId;
-
-    private String assigneeId;
-
     private String createdAt;
 
     private String updatedAt;
 
     private String status;
 
-    private String[] observerIds = {};
+    private String[] observerIds;
+
 }
-
-

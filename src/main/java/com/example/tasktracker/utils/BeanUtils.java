@@ -12,11 +12,10 @@ public class BeanUtils {
     public static void nonNullPropertiesCopy(Object from, Object to) {
         Field[] fields = from.getClass().getDeclaredFields();
         for(Field field : fields) {
-            if(field != null){
-                field.setAccessible(true);
-                Object source = field.get(from);
-                field.set(to, source);
-            }
+            field.setAccessible(true);
+            Object source = field.get(from);
+            if(source == null) continue;
+            field.set(to, source);
         }
     }
 }

@@ -31,13 +31,6 @@ public class UserController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Mono<ResponseEntity<UserModel>> createUser(@RequestBody UserModel model) {
-        return service.save(mapper.userModelToUser(model))
-                .map(mapper::userToUserModel)
-                .map(ResponseEntity::ok);
-    }
-
     @PutMapping("/{id}")
     public Mono<ResponseEntity<UserModel>> updateUser(@PathVariable String id, @RequestBody UserModel model) {
         return service.update(mapper.userModelToUser(id, model))
